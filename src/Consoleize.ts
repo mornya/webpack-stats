@@ -99,11 +99,11 @@ export namespace Consoleize {
         width: columnInfo.head[0].width,
         padding: columnInfo.head[0].padding,
       },
-      {
+      (dir && {
         text: chalk.cyan.bold('GZipped size'),
         width: columnInfo.head[1].width,
         padding: columnInfo.head[1].padding,
-      },
+      }),
       {
         text: chalk.cyan.bold('Asset name'),
         width: columnInfo.head[2].width,
@@ -226,7 +226,7 @@ export namespace Consoleize {
   function generateReport (assets: StatsJsonAsset[], dir: string, performance: Performance) {
     return assets.forEach((asset: StatsJsonAsset) => {
       const assetSize = formatSize(asset.size);
-      const gzipSize = getGzippedSize(asset, dir);
+      const gzipSize = dir ? getGzippedSize(asset.name, dir) : assetSize;
       const assetSizeFixed = assetSize.unit === 'B' ? assetSize.size : assetSize.size.toFixed(2);
       const gzipSizeFixed = gzipSize.unit === 'B' ? gzipSize.size : gzipSize.size.toFixed(2);
 
@@ -239,14 +239,14 @@ export namespace Consoleize {
           padding: columnInfo.body[0].padding,
           align: 'right',
         },
-        {
+        (dir && {
           text: (gzipSize.size >= performance.maxEntrypointSize)
             ? chalk.yellow(gzipSizeFixed + ' ' + gzipSize.unit)
             : `${gzipSizeFixed} ${chalk.gray(gzipSize.unit)}`,
           width: columnInfo.head[1].width,
           padding: columnInfo.body[1].padding,
           align: 'right',
-        },
+        }),
         {
           text: chalk[extTypeColor[asset.type] ?? 'gray'](asset.name),
           width: columnInfo.head[2].width,
@@ -271,8 +271,8 @@ export namespace Consoleize {
     return { size, unit };
   }
 
-  function getGzippedSize (asset: StatsJsonAsset, dir: string): FormatSize {
-    const filepath = path.resolve(path.join(dir, asset.name));
+  function getGzippedSize (assetName: string, dir: string): FormatSize {
+    const filepath = path.resolve(path.join(dir, assetName));
     const buffer = fs.readFileSync(filepath);
     return formatSize(zlib.gzipSync(buffer).length);
   }

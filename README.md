@@ -55,7 +55,7 @@ compiler.hooks.done.tap('done', (stats: webpack.Stats) => {
 ### `Consoleize.from`
 Generates a message from stats file
 - `statsFile`: filename (ex, stats.json)
-- `dir`: the webpack build output directory name from project root
+- `dir`: the webpack build output directory name from project root (empty string does not display GZipped-size)
 - `webpackConfigPerformance`: the webpack configuration of `performance` section object.
 ```typescript
 Consoleize.from (statsFile: string, dir: string, webpackConfigPerformance: WebpackConfigPerformance);
