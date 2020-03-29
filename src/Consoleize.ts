@@ -70,11 +70,11 @@ export namespace Consoleize {
     const performance: Performance = { ...defaultPerformance, ...webpackConfigPerformance };
     const seenNames = new Map();
 
-    const assets: StatsJsonAsset[] = (
+    const assets: StatsJsonAsset[] = ((
       json.assets
         ? json.assets
         : json.children?.reduce((acc: StatsJsonAsset[], child: StatsJson) => acc.concat(child.assets), [])
-    ) ?? []
+    ) ?? [])
       // 특정 파일확장자명 거르기
       .filter((asset: StatsJsonAsset) => !/\.(map)(\?.*)?$/.test(asset.name))
       // 쿼리스트링 제거
