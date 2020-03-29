@@ -73,8 +73,8 @@ export namespace Consoleize {
     const assets: StatsJsonAsset[] = (
       json.assets
         ? json.assets
-        : json.children.reduce((acc: StatsJsonAsset[], child: StatsJson) => acc.concat(child.assets), [])
-    )
+        : json.children?.reduce((acc: StatsJsonAsset[], child: StatsJson) => acc.concat(child.assets), [])
+    ) ?? []
       // 특정 파일확장자명 거르기
       .filter((asset: StatsJsonAsset) => !/\.(map)(\?.*)?$/.test(asset.name))
       // 쿼리스트링 제거
@@ -197,7 +197,7 @@ export namespace Consoleize {
     }
 
     // ===== Show Warnings =====
-    if (json.warnings.length) {
+    if (json.warnings?.length) {
       ui.div({
         text: chalk.yellow.bold(`✔︎ Build succeed with ${json.warnings.length > 1 ? json.warnings.length + ' warnings' : 'a warning'}.\n`),
         padding: [2, 2, 0, 4],
@@ -209,7 +209,7 @@ export namespace Consoleize {
     }
 
     // ===== Show Errors =====
-    if (json.errors.length) {
+    if (json.errors?.length) {
       ui.div({
         text: chalk.red.bold(`✖︎ Build failed with ${json.errors.length > 1 ? json.errors.length + ' errors' : 'an error'}.`),
         padding: json.warnings.length ? [0, 2, 0, 4] : [2, 2, 0, 4],
