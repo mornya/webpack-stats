@@ -110,6 +110,8 @@ export namespace Consoleize {
         return false;
       });
 
+    ui.resetOutput(); // flush memory buffer first!
+
     // ===== Show asset reports =====
     if (assets.length) {
       ui.div(

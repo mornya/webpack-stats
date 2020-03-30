@@ -9,6 +9,8 @@
 ## About
 The library for displaying the contents of `Stats` generated after building the webpack to the console.
 
+![스크린샷](screenshot.jpg)
+
 ## Installation
 해당 모듈을 사용할 프로젝트에서는 아래와 같이 설치한다.
 ```bash
@@ -18,13 +20,14 @@ $ yarn add webpack-stats
 ```
 
 ## Usage
-아래와 같이 모듈을 import하여 사용한다.
+아래와 같이 모듈을 import하여 사용한다. 아래 Consoleize.generate 설정에 사용된 값은 예시로 표기.
 ```typescript
 import { Consoleize } from 'webpack-stats';
 import webpack from 'webpack';
 
 ...
 
+const isWebpackDevServerRun = false;
 const webpackConfig = { ... };
 const compiler = webpack(webpackConfig);
 
@@ -38,13 +41,16 @@ compiler.hooks.done.tap('done', (stats: webpack.Stats) => {
       warnings: stats.hasWarnings(),
       errors: stats.hasErrors(),
       // optional info
-      version: true,
-      hash: true,
-      builtAt: true,
-      timings: true,
+      version: !isWebpackDevServerRun,
+      hash: !isWebpackDevServerRun,
+      builtAt: !isWebpackDevServerRun,
+      timings: !isWebpackDevServerRun,
       publicPath: true,
       outputPath: true,
-    }), 'dist', webpackConfig.performance);
+    }),
+    (isWebpackDevServerRun ? '' : 'dist'),
+    webpackConfig.performance,
+  );
 
   if (result) {
     console.log(result);
