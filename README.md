@@ -9,7 +9,7 @@
 ## About
 The library for displaying the contents of `Stats` generated after building the webpack to the console.
 
-![스크린샷](screenshot.jpg)
+![스크린샷](https://mornya.github.io/assets/webpack-stats-screenshot.jpg)
 
 ## Installation
 해당 모듈을 사용할 프로젝트에서는 아래와 같이 설치한다.

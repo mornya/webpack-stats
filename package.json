@@ -1,6 +1,6 @@
 {
   "name": "webpack-stats",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "The module of reporting to the console of webpack stats data.",
   "keywords": [
     "mornya",
@@ -67,6 +67,6 @@
     "webpack": "^4.42.1"
   },
   "vessel": {
-    "minVersion": "3.3.2"
+    "minVersion": "3.3.3"
   }
 }
