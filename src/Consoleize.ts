@@ -84,7 +84,6 @@ export namespace Consoleize {
    * @returns {string}
    */
   export function generate (statsJson: StatsJson, dir: string, webpackConfigPerformance?: WebpackConfigPerformance): string {
-    fs.writeFileSync('./sample.json', JSON.stringify(statsJson));
     const json: StatsJson = statsJson && Object.keys(statsJson).length > 1 ? statsJson : defaultStatJson;
     const performance: Performance = { ...defaultPerformance, ...webpackConfigPerformance };
     const seenNames = new Map();
