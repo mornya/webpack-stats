@@ -8,16 +8,22 @@ describe('Consoleize module', () => {
     ).toThrow('File not found.');
   });
 
-  it('Consoleize.from', () => {
+  it('Consoleize.from - Reads empty data from @stats-empty.json file', () => {
     expect(
-      Consoleize.from('src/test/@stats.json', '', {})
-    ).not.toBe('');
+      Consoleize.from('src/test/@stats-empty.json', '', {})
+    ).toEqual('');
+  });
+
+  it('Consoleize.from - Reads test data from @stats-test.json file', () => {
+    expect(
+      Consoleize.from('src/test/@stats-test.json', '', {})
+    ).not.toEqual('');
   });
 
   it('Consoleize.generate', () => {
     expect(
       Consoleize.generate({} as StatsJson, '', {})
-    ).not.toBe('');
+    ).toEqual('');
   });
 
 });

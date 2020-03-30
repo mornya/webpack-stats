@@ -31,8 +31,7 @@ const compiler = webpack(webpackConfig);
 compiler.hooks.done.tap('done', (stats: webpack.Stats) => {
 
   // Display generated message in console
-  console.log(
-    Consoleize.generate(stats.toJson({
+  const result = Consoleize.generate(stats.toJson({
       all: false,
       assets: true,
       children: true,
@@ -40,12 +39,16 @@ compiler.hooks.done.tap('done', (stats: webpack.Stats) => {
       errors: stats.hasErrors(),
       // optional info
       version: true,
-      hash: false,
+      hash: true,
       builtAt: true,
       timings: true,
       publicPath: true,
-    }), 'dist', webpackConfig.performance),
-  );
+      outputPath: true,
+    }), 'dist', webpackConfig.performance);
+
+  if (result) {
+    console.log(result);
+  }
 
 });
 ```

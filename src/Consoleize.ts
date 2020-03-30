@@ -53,6 +53,15 @@ export namespace Consoleize {
     js: 'green',
   };
 
+  /**
+   * from
+   * Get stats data from .json file (stats.json).
+   *
+   * @param statsFile {string}
+   * @param dir {string}
+   * @param webpackConfigPerformance {WebpackConfigPerformance}
+   * @returns {string}
+   */
   export function from (statsFile: string, dir: string, webpackConfigPerformance: WebpackConfigPerformance): string {
     if (fs.existsSync(statsFile)) {
       const stats = String(fs.readFileSync(statsFile));
@@ -65,7 +74,17 @@ export namespace Consoleize {
     throw new Error('File not found.');
   }
 
+  /**
+   * generate
+   * Generate stats data from webpack stats object.
+   *
+   * @param statsJson {StatsJson}
+   * @param dir {string}
+   * @param webpackConfigPerformance {WebpackConfigPerformance}
+   * @returns {string}
+   */
   export function generate (statsJson: StatsJson, dir: string, webpackConfigPerformance?: WebpackConfigPerformance): string {
+    fs.writeFileSync('./sample.json', JSON.stringify(statsJson));
     const json: StatsJson = statsJson && Object.keys(statsJson).length > 1 ? statsJson : defaultStatJson;
     const performance: Performance = { ...defaultPerformance, ...webpackConfigPerformance };
     const seenNames = new Map();
@@ -93,60 +112,59 @@ export namespace Consoleize {
       });
 
     // ===== Show asset reports =====
-    ui.div(
-      {
-        text: chalk.cyan.bold('Module size'),
-        width: columnInfo.head[0].width,
-        padding: columnInfo.head[0].padding,
-      },
-      (dir && {
-        text: chalk.cyan.bold('GZipped size'),
-        width: columnInfo.head[1].width,
-        padding: columnInfo.head[1].padding,
-      }),
-      {
-        text: chalk.cyan.bold('Asset name'),
-        width: columnInfo.head[2].width,
-        padding: columnInfo.head[2].padding,
-      },
-    );
+    if (assets.length) {
+      ui.div(
+        {
+          text: chalk.cyan.bold('Module size'),
+          width: columnInfo.head[0].width,
+          padding: columnInfo.head[0].padding,
+        },
+        (dir && {
+          text: chalk.cyan.bold('GZipped size'),
+          width: columnInfo.head[1].width,
+          padding: columnInfo.head[1].padding,
+        }),
+        {
+          text: chalk.cyan.bold('Asset name'),
+          width: columnInfo.head[2].width,
+          padding: columnInfo.head[2].padding,
+        },
+      );
 
-    // generate report: resources
-    generateReport(
-      assets
-        .filter((asset: StatsJsonAsset) => asset.type !== 'css' && asset.type !== 'js')
-        .sort((assetA: StatsJsonAsset, assetB: StatsJsonAsset) => assetB.size - assetA.size),
-      dir,
-      performance,
-    );
+      // generate report: resources
+      generateReport(
+        assets
+          .filter((asset: StatsJsonAsset) => asset.type !== 'css' && asset.type !== 'js')
+          .sort((assetA: StatsJsonAsset, assetB: StatsJsonAsset) => assetB.size - assetA.size),
+        dir,
+        performance,
+      );
 
-    ui.div();
+      // generate report: css
+      generateReport(
+        assets
+          .filter((asset: StatsJsonAsset) => asset.type === 'css')
+          .sort((assetA: StatsJsonAsset, assetB: StatsJsonAsset) => assetB.size - assetA.size),
+        dir,
+        performance,
+      );
 
-    // generate report: css
-    generateReport(
-      assets
-        .filter((asset: StatsJsonAsset) => asset.type === 'css')
-        .sort((assetA: StatsJsonAsset, assetB: StatsJsonAsset) => assetB.size - assetA.size),
-      dir,
-      performance,
-    );
+      // generate report: js
+      generateReport(
+        assets
+          .filter((asset: StatsJsonAsset) => asset.type === 'js')
+          .sort((assetA: StatsJsonAsset, assetB: StatsJsonAsset) => assetB.size - assetA.size),
+        dir,
+        performance,
+      );
 
-    ui.div();
-
-    // generate report: js
-    generateReport(
-      assets
-        .filter((asset: StatsJsonAsset) => asset.type === 'js')
-        .sort((assetA: StatsJsonAsset, assetB: StatsJsonAsset) => assetB.size - assetA.size),
-      dir,
-      performance,
-    );
+      ui.div({
+        text: chalk.gray.bold('SourceMap files are omitted in the report.'),
+        padding: [0, 2, 0, 4],
+      });
+    }
 
     // ===== Extra informations =====
-    ui.div({
-      text: chalk.gray.bold('SourceMap files are omitted in the report.'),
-      padding: [1, 2, 0, 4],
-    });
     if (json.version) {
       ui.div({
         text: `${chalk.gray('Webpack version:')} ${json.version}`,
@@ -220,11 +238,15 @@ export namespace Consoleize {
       });
     }
 
-    return ui.toString();
+    const result = ui.toString();
+
+    ui.resetOutput(); // flush memory buffer
+
+    return result;
   }
 
-  function generateReport (assets: StatsJsonAsset[], dir: string, performance: Performance) {
-    return assets.forEach((asset: StatsJsonAsset) => {
+  function generateReport (assets: StatsJsonAsset[], dir: string, performance: Performance): void {
+    assets.forEach((asset: StatsJsonAsset) => {
       const assetSize = formatSize(asset.size);
       const gzipSize = dir ? getGzippedSize(asset.name, dir) : assetSize;
       const assetSizeFixed = assetSize.unit === 'B' ? assetSize.size : assetSize.size.toFixed(2);
@@ -254,6 +276,10 @@ export namespace Consoleize {
         },
       );
     });
+
+    if (assets.length) {
+      ui.div(); // make a new line
+    }
   }
 
   function formatSize (assetSize: number): FormatSize {

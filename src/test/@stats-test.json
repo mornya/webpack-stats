@@ -1,0 +1,265 @@
+{
+  "errors": [],
+  "warnings": [
+    "entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (97.7 KiB). This can impact web performance.\nEntrypoints:\n  main (205 KiB)\n      scripts/runtime~main-a82b1094.js\n      scripts/vendors~493df0b3-005eff8c.js\n      scripts/main-adcc8207.js\n"
+  ],
+  "version": "4.42.1",
+  "time": 5536,
+  "builtAt": 1585548307827,
+  "publicPath": "/",
+  "assetsByChunkName": {
+    "main": [
+      "scripts/main-adcc8207.js",
+      "scripts/main-adcc8207.js.map"
+    ],
+    "runtime~main": [
+      "scripts/runtime~main-a82b1094.js",
+      "scripts/runtime~main-a82b1094.js.map"
+    ],
+    "vendors~493df0b3": [
+      "scripts/vendors~493df0b3-005eff8c.js",
+      "scripts/vendors~493df0b3-005eff8c.js.map"
+    ]
+  },
+  "assets": [
+    {
+      "name": "images/logo-a36ca0f4.svg",
+      "size": 2647,
+      "chunks": [],
+      "chunkNames": [],
+      "info": {
+        "size": 2647
+      },
+      "emitted": true
+    },
+    {
+      "name": "index.html",
+      "size": 1352,
+      "chunks": [],
+      "chunkNames": [],
+      "info": {
+        "size": 1352
+      },
+      "emitted": true
+    },
+    {
+      "name": "scripts/3-253f46ea.js",
+      "size": 1368,
+      "chunks": [
+        3
+      ],
+      "chunkNames": [],
+      "info": {
+        "immutable": true,
+        "size": 1368
+      },
+      "emitted": true
+    },
+    {
+      "name": "scripts/3-253f46ea.js.map",
+      "size": 2712,
+      "chunks": [
+        3
+      ],
+      "chunkNames": [],
+      "info": {
+        "development": true,
+        "size": 2712
+      },
+      "emitted": true
+    },
+    {
+      "name": "scripts/4-cfa0eb23.js",
+      "size": 1425,
+      "chunks": [
+        4
+      ],
+      "chunkNames": [],
+      "info": {
+        "immutable": true,
+        "size": 1425
+      },
+      "emitted": true
+    },
+    {
+      "name": "scripts/4-cfa0eb23.js.map",
+      "size": 3823,
+      "chunks": [
+        4
+      ],
+      "chunkNames": [],
+      "info": {
+        "development": true,
+        "size": 3823
+      },
+      "emitted": true
+    },
+    {
+      "name": "scripts/5-456f28c9.js",
+      "size": 557,
+      "chunks": [
+        5
+      ],
+      "chunkNames": [],
+      "info": {
+        "immutable": true,
+        "size": 557
+      },
+      "emitted": true
+    },
+    {
+      "name": "scripts/5-456f28c9.js.map",
+      "size": 891,
+      "chunks": [
+        5
+      ],
+      "chunkNames": [],
+      "info": {
+        "development": true,
+        "size": 891
+      },
+      "emitted": true
+    },
+    {
+      "name": "scripts/main-adcc8207.js",
+      "size": 1258,
+      "chunks": [
+        0
+      ],
+      "chunkNames": [
+        "main"
+      ],
+      "info": {
+        "immutable": true,
+        "size": 1258
+      },
+      "emitted": true
+    },
+    {
+      "name": "scripts/main-adcc8207.js.map",
+      "size": 3943,
+      "chunks": [
+        0
+      ],
+      "chunkNames": [
+        "main"
+      ],
+      "info": {
+        "development": true,
+        "size": 3943
+      },
+      "emitted": true
+    },
+    {
+      "name": "scripts/runtime~main-a82b1094.js",
+      "size": 3243,
+      "chunks": [
+        1
+      ],
+      "chunkNames": [
+        "runtime~main"
+      ],
+      "info": {
+        "immutable": true,
+        "size": 3243
+      },
+      "emitted": true
+    },
+    {
+      "name": "scripts/runtime~main-a82b1094.js.map",
+      "size": 5786,
+      "chunks": [
+        1
+      ],
+      "chunkNames": [
+        "runtime~main"
+      ],
+      "info": {
+        "development": true,
+        "size": 5786
+      },
+      "emitted": true
+    },
+    {
+      "name": "scripts/vendors~493df0b3-005eff8c.js",
+      "size": 205154,
+      "chunks": [
+        2
+      ],
+      "chunkNames": [
+        "vendors~493df0b3"
+      ],
+      "info": {
+        "immutable": true,
+        "size": 205154
+      },
+      "emitted": true
+    },
+    {
+      "name": "scripts/vendors~493df0b3-005eff8c.js.map",
+      "size": 632596,
+      "chunks": [
+        2
+      ],
+      "chunkNames": [
+        "vendors~493df0b3"
+      ],
+      "info": {
+        "development": true,
+        "size": 632596
+      },
+      "emitted": true
+    },
+    {
+      "name": "styles/3-253f46ea.css",
+      "size": 2584,
+      "chunks": [
+        3
+      ],
+      "chunkNames": [],
+      "info": {
+        "immutable": true,
+        "size": 2584
+      },
+      "emitted": true
+    },
+    {
+      "name": "styles/3-253f46ea.css.map",
+      "size": 3456,
+      "chunks": [
+        3
+      ],
+      "chunkNames": [],
+      "info": {
+        "development": true,
+        "size": 3456
+      },
+      "emitted": true
+    }
+  ],
+  "filteredAssets": 0,
+  "children": [
+    {
+      "errors": [],
+      "warnings": [],
+      "publicPath": "/",
+      "assetsByChunkName": {
+        "HtmlWebpackPlugin_0": "__child-HtmlWebpackPlugin_0"
+      },
+      "assets": [],
+      "filteredAssets": 1,
+      "children": [],
+      "name": "HtmlWebpackCompiler"
+    },
+    {
+      "errors": [],
+      "warnings": [],
+      "publicPath": "/",
+      "assetsByChunkName": {},
+      "assets": [],
+      "filteredAssets": 0,
+      "children": [],
+      "name": "mini-css-extract-plugin ../mornya-react-vessel/node_modules/css-loader/dist/cjs.js??ref--7-oneOf-5-1!../mornya-react-vessel/node_modules/postcss-loader/src/index.js??postcss!../mornya-react-vessel/node_modules/sass-loader/dist/cjs.js??ref--7-oneOf-5-3!src/App.scss"
+    }
+  ]
+}
