@@ -1,6 +1,6 @@
 {
   "name": "webpack-stats",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "The module of reporting to the console of webpack stats data.",
   "keywords": [
     "mornya",

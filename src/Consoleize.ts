@@ -163,6 +163,8 @@ export namespace Consoleize {
         text: chalk.gray.bold('SourceMap files are omitted in the report.'),
         padding: [0, 2, 0, 4],
       });
+    } else {
+      ui.div(); // make a new line
     }
 
     // ===== Extra informations =====
@@ -204,7 +206,7 @@ export namespace Consoleize {
     }
     if (json.filteredAssets) {
       ui.div({
-        text: `${chalk.gray('Filterd assets:')} ${json.filteredAssets}`,
+        text: `${chalk.gray('Filtered assets:')} ${json.filteredAssets}`,
         padding: [0, 2, 0, 4],
       });
     }
@@ -218,8 +220,10 @@ export namespace Consoleize {
     // ===== Show Warnings =====
     if (json.warnings?.length) {
       ui.div({
-        text: chalk.yellow.bold(`✔︎ Build succeed with ${json.warnings.length > 1 ? json.warnings.length + ' warnings' : 'a warning'}.\n`),
-        padding: [2, 2, 0, 4],
+        text: chalk.yellow.bold(
+          `✔︎ Build succeed with ${json.warnings.length > 1 ? json.warnings.length + ' warnings' : 'a warning'}.\n`,
+        ),
+        padding: [1, 2, 0, 4],
       });
       ui.div({
         text: json.warnings.join('\n\n'),
@@ -230,12 +234,14 @@ export namespace Consoleize {
     // ===== Show Errors =====
     if (json.errors?.length) {
       ui.div({
-        text: chalk.red.bold(`✖︎ Build failed with ${json.errors.length > 1 ? json.errors.length + ' errors' : 'an error'}.`),
-        padding: json.warnings.length ? [0, 2, 0, 4] : [2, 2, 0, 4],
+        text: chalk.red.bold(
+          `✖︎ Build failed with ${json.errors.length > 1 ? json.errors.length + ' errors' : 'an error'}.\n`,
+        ),
+        padding: [(json.warnings?.length ? 0 : 1), 2, 0, 4],
       });
       ui.div({
         text: json.errors.join('\n\n'),
-        padding: [0, 2, 0, 4],
+        padding: [0, 2, 1, 4],
       });
     }
 
@@ -290,7 +296,7 @@ export namespace Consoleize {
       unit = 'MiB';
     } else if (assetSize > 1000) {
       size = assetSize / 1000; //1024;
-      unit = 'KiB'
+      unit = 'KiB';
     } else {
       size = assetSize;
       unit = 'B';
