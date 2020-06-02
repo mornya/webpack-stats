@@ -7,6 +7,8 @@ All notable version changes would be documented in this file.
 - Chores
   - Update dependencies
   - Add testcase files
+  - Refined all source codes with usage of @mornya/vessel v4
+  - Runs code linting and testing with @lintest/cli
 - Bugs fixed
   - Error identifying assets
   - GZipped-size is not displayed when running webpack-dev-server

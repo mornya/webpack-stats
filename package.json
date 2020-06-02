@@ -1,16 +1,18 @@
 {
   "name": "webpack-stats",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "The module of reporting to the console of webpack stats data.",
   "keywords": [
     "mornya",
     "vessel",
+    "node",
     "webpack",
     "stats",
     "console",
     "reporter",
     "formatter",
-    "consoleize"
+    "consoleize",
+    "front-end"
   ],
   "homepage": "",
   "license": "ISC",
@@ -21,16 +23,16 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
+    "prepublishOnly": "vessel prepublish",
     "login": "vessel login",
-    "lint": "vessel lint",
-    "lint:fix": "vessel lint fix",
     "clean": "vessel clean",
     "build": "vessel build",
     "watch": "vessel build watch",
-    "test": "vessel test",
-    "test:watch": "vessel test watch",
-    "test:coverage": "vessel test coverage",
-    "prepublishOnly": "vessel prepublish"
+    "lint": "lintest lint",
+    "lint:fix": "lintest lint fix",
+    "test": "lintest test",
+    "test:watch": "lintest test watch",
+    "test:coverage": "lintest test coverage"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
@@ -44,7 +46,6 @@
     "!dist/**/*.test.d.ts",
     "!dist/**/*.test.js",
     "types",
-    "screenshot.jpg",
     "CHANGELOG.md",
     "README.md",
     "LICENSE"
@@ -58,15 +59,17 @@
     "fs-extra": "^9.0.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^8.1.0",
-    "@types/jest": "^25.1.4",
-    "@types/node": "^13.9.5",
-    "@types/react": "^16.9.27",
-    "@types/react-dom": "^16.9.5",
-    "@types/webpack": "^4.41.9",
-    "webpack": "^4.42.1"
+    "@types/chalk": "^2.2.0",
+    "@types/fs-extra": "^9.0.1",
+    "@types/jest": "^25.2.3",
+    "@types/node": "^14.0.9",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "@types/webpack": "^4.41.17",
+    "@types/webpack-env": "^1.15.2",
+    "webpack": "^4.43.0"
   },
   "vessel": {
-    "minVersion": "3.3.3"
+    "minVersion": "4.0.0"
   }
 }

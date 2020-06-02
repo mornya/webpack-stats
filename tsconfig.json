@@ -11,18 +11,20 @@
       "jest",
       "node",
       "react",
-      "react-dom"
+      "react-dom",
+      "webpack-env"
     ],
     "lib": [
       "esnext",
       "esnext.asynciterable",
       "dom",
-      "dom.iterable"
+      "dom.iterable",
+      "scripthost"
     ],
     "charset": "utf8",
     "baseUrl": ".",
     "outDir": "./dist/",
-    "jsx": "react",
+    "jsx": "preserve",
     "declaration": true,
     "esModuleInterop": true,
     "downlevelIteration": true,
@@ -46,11 +48,13 @@
   ],
   "exclude": [
     "coverage",
+    "dist",
+    "documents",
+    "node_modules",
     "public",
     "src/assets",
-    "dist",
-    "node_modules",
     ".idea",
-    ".git"
+    ".git",
+    ".vscode"
   ]
 }
