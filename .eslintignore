@@ -17,6 +17,3 @@
 
 # configuration files
 *.config.js
-
-# test json files
-/src/test/*.json
