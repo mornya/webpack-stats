@@ -10,8 +10,6 @@
     "types": [
       "jest",
       "node",
-      "react",
-      "react-dom",
       "webpack-env"
     ],
     "lib": [
@@ -49,7 +47,6 @@
   "exclude": [
     "coverage",
     "dist",
-    "documents",
     "node_modules",
     "public",
     "src/assets",
