@@ -25,6 +25,16 @@ type ColumnInfo = {
     padding: [number, number, number, number];
   }>;
 };
+type BuildWarning = {
+  moduleIdentifier: string;
+  moduleName: string;
+  message: string;
+};
+type BuildError = {
+  moduleIdentifier: string;
+  moduleName: string;
+  message: string;
+};
 
 export namespace Consoleize {
   const ui = cliui({ width: 80, wrap: false });
@@ -88,17 +98,17 @@ export namespace Consoleize {
     const performance: Performance = { ...defaultPerformance, ...webpackConfigPerformance };
     const seenNames = new Map();
 
-    const assets: StatsJsonAsset[] = ((
+    const assets: StatsJsonAsset[] = (
       json.assets
-        ? json.assets
-        : json.children?.reduce((acc: StatsJsonAsset[], child: StatsJson) => acc.concat(child.assets), [])
-    ) ?? [])
+      ?? json.children?.reduce((acc: StatsJsonAsset[], child: StatsJson) => acc.concat(child.assets), [])
+      ?? []
+    )
       // 특정 파일확장자명 거르기
-      .filter((asset: StatsJsonAsset) => !/\.(map)(\?.*)?$/.test(asset.name))
+      .filter((asset: StatsJsonAsset) => !!asset.name && !/\.(map)(\?.*)?$/.test(asset.name))
       // 쿼리스트링 제거
       .map((asset: StatsJsonAsset) => {
-        asset.name = asset.name.split('?')[0];
-        asset.type = asset.name.match(/\.(.*)$/)?.[1] ?? '';
+        asset.name = asset.name?.split('?')[0] ?? 'UNKNOWN';
+        asset.type = asset.name?.match(/\.(.*)$/)?.[1] ?? 'UNKNOWN';
         return asset;
       })
       // 에셋명 중복 제거
@@ -226,7 +236,12 @@ export namespace Consoleize {
         padding: [1, 2, 0, 4],
       });
       ui.div({
-        text: json.warnings.join('\n\n'),
+        text: (json.warnings as BuildWarning[])
+          .map(err => err.moduleName
+            ? `${chalk.greenBright.bold(err.moduleName)}\n${err.message}`
+            : err.message
+          )
+          .join('\n\n'),
         padding: [0, 2, 0, 4],
       });
     }
@@ -240,7 +255,12 @@ export namespace Consoleize {
         padding: [(json.warnings?.length ? 0 : 1), 2, 0, 4],
       });
       ui.div({
-        text: json.errors.join('\n\n'),
+        text: (json.errors as BuildError[])
+          .map(err => err.moduleName
+            ? `${chalk.greenBright.bold(err.moduleName)}\n${err.message}`
+            : err.message
+          )
+          .join('\n\n'),
         padding: [0, 2, 1, 4],
       });
     }

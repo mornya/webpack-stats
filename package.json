@@ -1,6 +1,6 @@
 {
   "name": "webpack-stats",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "The module of reporting to the console of webpack stats data.",
   "keywords": [
     "mornya",
@@ -55,17 +55,17 @@
     "npm": ">=6"
   },
   "dependencies": {
-    "cliui": "^7.0.1",
-    "fs-extra": "^9.0.1"
+    "cliui": "^7.0.4",
+    "fs-extra": "^9.1.0"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
-    "@types/fs-extra": "^9.0.1",
-    "@types/jest": "^26.0.14",
-    "@types/node": "^14.11.2",
-    "@types/webpack": "^4.41.22",
-    "@types/webpack-env": "^1.15.3",
-    "webpack": "^4.44.2"
+    "@types/fs-extra": "^9.0.6",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.25",
+    "@types/webpack": "^4.41.26",
+    "@types/webpack-env": "^1.16.0",
+    "webpack": "^5.20.2"
   },
   "vessel": {
     "minVersion": "4.0.0"
