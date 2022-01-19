@@ -23,6 +23,7 @@
     "baseUrl": ".",
     "outDir": "./dist/",
     "jsx": "preserve",
+    "importsNotUsedAsValues": "preserve",
     "declaration": true,
     "esModuleInterop": true,
     "downlevelIteration": true,

@@ -1,8 +1,16 @@
 # Change Log
 All notable version changes would be documented in this file.
 
+## 0.2.0
+> Minor version updated at 2022.01.19
+- Chores
+  - Update dependencies
+  - Refined all source codes with usage of @mornya/vessel v5
+- Performance Improvements: Errors and warnings messages were tuned
+- Bugs fixed: An error where warning/error messages were not output
+
 ## 0.1.x
-> Minor version released at 2020.03.29 ~ 2021.02.05
+> Minor version released at 2020.03.29 ~ 2021.02.05, 2022.01.19
 - Published initial build
 - Chores
   - Update dependencies

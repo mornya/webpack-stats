@@ -13,7 +13,7 @@
 /temporary
 /*.tgz
 /.coverage
-/.env
+/.scannerwork
 .DS_Store
 .eslintcache
 

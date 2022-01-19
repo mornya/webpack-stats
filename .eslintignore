@@ -9,11 +9,12 @@
 /out
 /public
 /static
+/src/assets
 /.coverage
 /.git
 /.idea
+/.scannerwork
 /.vscode
-/src/assets
 
 # configuration files
-*.config.js
+/*.js

@@ -5,7 +5,7 @@
 ![downloads](https://img.shields.io/npm/dw/webpack-stats)
 ![license](https://img.shields.io/npm/l/webpack-stats)
 
-Copyright 2021. mornya. All rights reserved.
+Copyright 2022. mornya. All rights reserved.
 
 > This project has been created by [Vessel CLI](https://www.npmjs.com/package/@mornya/vessel).
   For a simple and quick reference about it, click [here](https://mornya.github.io/documents/guide/vessel.md).
@@ -87,7 +87,7 @@ Consoleize.generate (statsJson: webpack.Stats.ToJsonOutput, dir: string, webpack
 ```
 
 ## Change Log
-해당 프로젝트의 [CHANGELOG.md](CHANGELOG.md) 파일 참조.
+프로젝트 변경사항은 [CHANGELOG.md](CHANGELOG.md) 파일 참조.
 
 ## License
-해당 프로젝트의 [LICENSE](LICENSE) 파일 참조.
+프로젝트 라이센스는 [LICENSE](https://mornya.github.io/documents/LICENSE-ISC) 참조.

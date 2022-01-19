@@ -1,6 +1,6 @@
 {
   "name": "webpack-stats",
-  "version": "0.1.10",
+  "version": "0.2.0",
   "description": "The module of reporting to the console of webpack stats data.",
   "keywords": [
     "mornya",
@@ -12,7 +12,8 @@
     "reporter",
     "formatter",
     "consoleize",
-    "front-end"
+    "front-end",
+    "back-end"
   ],
   "homepage": "",
   "license": "ISC",
@@ -21,18 +22,21 @@
   "repository": "https://bitbucket.org/mornya-web/webpack-stats",
   "bugs": "",
   "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist",
   "scripts": {
+    "setup": "husky install && lintest install || exit 0",
     "prepublishOnly": "vessel prepublish",
     "login": "vessel login",
     "clean": "vessel clean",
     "build": "vessel build",
-    "watch": "vessel build watch",
+    "watch": "vessel build --watch",
+    "check": "vessel check",
     "lint": "lintest lint",
-    "lint:fix": "lintest lint fix",
+    "lint:fix": "lintest lint --fix",
     "test": "lintest test",
-    "test:watch": "lintest test watch",
-    "test:coverage": "lintest test coverage"
+    "test:watch": "lintest test --watch",
+    "test:coverage": "lintest test --coverage",
+    "sonar": "sonar-scanner"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
@@ -45,29 +49,37 @@
     "!dist/**/@setup.js",
     "!dist/**/*.test.d.ts",
     "!dist/**/*.test.js",
-    "types",
     "CHANGELOG.md",
     "README.md",
     "LICENSE"
   ],
+  "type": "commonjs",
   "engines": {
-    "node": ">=10",
+    "node": "12.x || 14.x || 16.x",
     "npm": ">=6"
   },
   "dependencies": {
-    "cliui": "^7.0.4",
-    "fs-extra": "^9.1.0"
+    "chalk": "^4.1.2",
+    "cliui": "^7.0.4"
   },
   "devDependencies": {
-    "@types/chalk": "^2.2.0",
-    "@types/fs-extra": "^9.0.6",
-    "@types/jest": "^26.0.20",
-    "@types/node": "^14.14.25",
-    "@types/webpack": "^4.41.26",
-    "@types/webpack-env": "^1.16.0",
-    "webpack": "^5.20.2"
+    "@types/jest": "^27.4.0",
+    "@types/node": "^17.0.10",
+    "@types/webpack": "^5.28.0",
+    "@types/webpack-env": "^1.16.3",
+    "eslint": "^8.7.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.2.0",
+    "typescript": "^4.5.4",
+    "webpack": "^5.66.0"
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "npm run check",
+      "npm run lint"
+    ]
   },
   "vessel": {
-    "minVersion": "4.0.0"
+    "minVersion": "5.0.0"
   }
 }

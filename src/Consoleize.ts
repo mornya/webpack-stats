@@ -1,7 +1,7 @@
+import fs from 'fs';
 import path from 'path';
-import chalk from 'chalk';
-import fs from 'fs-extra';
 import zlib from 'zlib';
+import chalk from 'chalk';
 import cliui from 'cliui';
 
 type WebpackConfigPerformance = false | undefined | null | {
@@ -239,7 +239,7 @@ export namespace Consoleize {
         text: (json.warnings as BuildWarning[])
           .map(err => err.moduleName
             ? `${chalk.greenBright.bold(err.moduleName)}\n${err.message}`
-            : err.message
+            : (err.message ?? err)
           )
           .join('\n\n'),
         padding: [0, 2, 0, 4],
@@ -258,7 +258,7 @@ export namespace Consoleize {
         text: (json.errors as BuildError[])
           .map(err => err.moduleName
             ? `${chalk.greenBright.bold(err.moduleName)}\n${err.message}`
-            : err.message
+            : (err.message ?? err)
           )
           .join('\n\n'),
         padding: [0, 2, 1, 4],
