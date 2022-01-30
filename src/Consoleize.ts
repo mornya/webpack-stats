@@ -326,7 +326,11 @@ export namespace Consoleize {
 
   function getGzippedSize (assetName: string, dir: string): FormatSize {
     const filepath = path.resolve(path.join(dir, assetName));
-    const buffer = fs.readFileSync(filepath);
-    return formatSize(zlib.gzipSync(buffer).length);
+    try {
+      const buffer = fs.readFileSync(filepath);
+      return formatSize(zlib.gzipSync(buffer).length);
+    } catch (e) {
+      return formatSize(0);
+    }
   }
 }
