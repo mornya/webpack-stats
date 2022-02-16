@@ -48,9 +48,9 @@
   "exclude": [
     "coverage",
     "dist",
-    "node_modules",
     "public",
     "src/assets",
+    ".coverage",
     ".idea",
     ".git",
     ".vscode"

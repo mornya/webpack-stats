@@ -90,4 +90,4 @@ Consoleize.generate (statsJson: webpack.Stats.ToJsonOutput, dir: string, webpack
 프로젝트 변경사항은 [CHANGELOG.md](CHANGELOG.md) 파일 참조.
 
 ## License
-프로젝트 라이센스는 [LICENSE](https://mornya.github.io/documents/LICENSE-ISC) 참조.
+프로젝트 라이센스는 [LICENSE](LICENSE) 참조.

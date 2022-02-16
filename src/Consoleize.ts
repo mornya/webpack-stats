@@ -67,9 +67,9 @@ export namespace Consoleize {
    * from
    * Get stats data from .json file (stats.json).
    *
-   * @param statsFile {string}
-   * @param dir {string}
-   * @param webpackConfigPerformance {WebpackConfigPerformance}
+   * @param {string} statsFile
+   * @param {string} dir
+   * @param {WebpackConfigPerformance} webpackConfigPerformance
    * @returns {string}
    */
   export function from (statsFile: string, dir: string, webpackConfigPerformance: WebpackConfigPerformance): string {
@@ -88,9 +88,9 @@ export namespace Consoleize {
    * generate
    * Generate stats data from webpack stats object.
    *
-   * @param statsJson {StatsJson}
-   * @param dir {string}
-   * @param webpackConfigPerformance {WebpackConfigPerformance}
+   * @param {StatsJson} statsJson
+   * @param {string} dir
+   * @param {WebpackConfigPerformance} webpackConfigPerformance
    * @returns {string}
    */
   export function generate (statsJson: StatsJson, dir: string, webpackConfigPerformance?: WebpackConfigPerformance): string {
@@ -272,6 +272,14 @@ export namespace Consoleize {
     return result;
   }
 
+  /**
+   * generateReport
+   *
+   * @param {StatsJsonAsset[]} assets
+   * @param {string} dir
+   * @param {Performance} performance
+   * @private
+   */
   function generateReport (assets: StatsJsonAsset[], dir: string, performance: Performance): void {
     assets.forEach((asset: StatsJsonAsset) => {
       const assetSize = formatSize(asset.size);
@@ -309,6 +317,13 @@ export namespace Consoleize {
     }
   }
 
+  /**
+   * formatSize
+   *
+   * @param {number} assetSize
+   * @returns {FormatSize}
+   * @private
+   */
   function formatSize (assetSize: number): FormatSize {
     let size: number, unit: string;
     if (assetSize > 1000000) {
@@ -324,6 +339,14 @@ export namespace Consoleize {
     return { size, unit };
   }
 
+  /**
+   * getGzippedSize
+   *
+   * @param {string} assetName
+   * @param {string} dir
+   * @returns {FormatSize}
+   * @private
+   */
   function getGzippedSize (assetName: string, dir: string): FormatSize {
     const filepath = path.resolve(path.join(dir, assetName));
     try {
