@@ -1,6 +1,4 @@
-# Ignoring git directories and files
-# For more about ignoring file informations,
-# See https://help.github.com/articles/ignoring-files/
+# Ignoring prettier directories and files
 
 # local-only directories
 /coverage
@@ -12,15 +10,14 @@
 /temp
 /temporary
 /tmp
+/public
+/.next
 /.pnp
-/.cache
 /.coverage
 /.scannerwork
 /.env
-/.env.local
-/.env.development.local
-/.env.test.local
-/.env.production.local
+/.env.*
+/*.tgz
 .DS_Store
 .eslintcache
 .pnp.js
