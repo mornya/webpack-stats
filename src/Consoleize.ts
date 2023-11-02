@@ -4,10 +4,14 @@ import zlib from 'zlib';
 import chalk from 'chalk';
 import cliui from 'cliui';
 
-type WebpackConfigPerformance = false | undefined | null | {
-  maxAssetSize?: number;
-  maxEntrypointSize?: number;
-};
+type WebpackConfigPerformance =
+  | false
+  | undefined
+  | null
+  | {
+      maxAssetSize?: number;
+      maxEntrypointSize?: number;
+    };
 type Performance = {
   maxAssetSize: number;
   maxEntrypointSize: number;
@@ -46,16 +50,8 @@ export namespace Consoleize {
     maxEntrypointSize: 100000, // 128KB
   };
   const columnInfo: ColumnInfo = {
-    head: [
-      { width: 17, padding: [2, 2, 1, 4] },
-      { width: 16, padding: [2, 2, 1, 2] },
-      { padding: [2, 4, 1, 2] },
-    ],
-    body: [
-      { padding: [0, 2, 0, 4] },
-      { padding: [0, 2, 0, 2] },
-      { padding: [0, 4, 0, 2] },
-    ],
+    head: [{ width: 17, padding: [2, 2, 1, 4] }, { width: 16, padding: [2, 2, 1, 2] }, { padding: [2, 4, 1, 2] }],
+    body: [{ padding: [0, 2, 0, 4] }, { padding: [0, 2, 0, 2] }, { padding: [0, 4, 0, 2] }],
   };
   const extTypeColor = {
     html: 'white',
@@ -67,12 +63,12 @@ export namespace Consoleize {
    * from
    * Get stats data from .json file (stats.json).
    *
-   * @param {string} statsFile
-   * @param {string} dir
-   * @param {WebpackConfigPerformance} webpackConfigPerformance
+   * @param statsFile {string}
+   * @param dir {string}
+   * @param webpackConfigPerformance {WebpackConfigPerformance}
    * @returns {string}
    */
-  export function from (statsFile: string, dir: string, webpackConfigPerformance: WebpackConfigPerformance): string {
+  export function from(statsFile: string, dir: string, webpackConfigPerformance: WebpackConfigPerformance): string {
     if (fs.existsSync(statsFile)) {
       const stats = String(fs.readFileSync(statsFile));
       if (stats) {
@@ -88,20 +84,24 @@ export namespace Consoleize {
    * generate
    * Generate stats data from webpack stats object.
    *
-   * @param {StatsJson} statsJson
-   * @param {string} dir
-   * @param {WebpackConfigPerformance} webpackConfigPerformance
+   * @param statsJson {StatsJson}
+   * @param dir {string}
+   * @param webpackConfigPerformance {WebpackConfigPerformance}
    * @returns {string}
    */
-  export function generate (statsJson: StatsJson, dir: string, webpackConfigPerformance?: WebpackConfigPerformance): string {
+  export function generate(
+    statsJson: StatsJson,
+    dir: string,
+    webpackConfigPerformance?: WebpackConfigPerformance,
+  ): string {
     const json: StatsJson = statsJson && Object.keys(statsJson).length > 1 ? statsJson : defaultStatJson;
     const performance: Performance = { ...defaultPerformance, ...webpackConfigPerformance };
     const seenNames = new Map();
 
     const assets: StatsJsonAsset[] = (
-      json.assets
-      ?? json.children?.reduce((acc: StatsJsonAsset[], child: StatsJson) => acc.concat(child.assets), [])
-      ?? []
+      json.assets ??
+      json.children?.reduce((acc: StatsJsonAsset[], child: StatsJson) => acc.concat(child.assets), []) ??
+      []
     )
       // 특정 파일확장자명 거르기
       .filter((asset: StatsJsonAsset) => !!asset.name && !/\.(map)(\?.*)?$/.test(asset.name))
@@ -130,11 +130,11 @@ export namespace Consoleize {
           width: columnInfo.head[0].width,
           padding: columnInfo.head[0].padding,
         },
-        (dir && {
+        dir && {
           text: chalk.cyan.bold('GZipped size'),
           width: columnInfo.head[1].width,
           padding: columnInfo.head[1].padding,
-        }),
+        },
         {
           text: chalk.cyan.bold('Asset name'),
           width: columnInfo.head[2].width,
@@ -237,9 +237,8 @@ export namespace Consoleize {
       });
       ui.div({
         text: (json.warnings as BuildWarning[])
-          .map(err => err.moduleName
-            ? `${chalk.greenBright.bold(err.moduleName)}\n${err.message}`
-            : (err.message ?? err)
+          .map((err) =>
+            err.moduleName ? `${chalk.greenBright.bold(err.moduleName)}\n${err.message}` : err.message ?? err,
           )
           .join('\n\n'),
         padding: [0, 2, 0, 4],
@@ -252,13 +251,12 @@ export namespace Consoleize {
         text: chalk.red.bold(
           `✖︎ Build failed with ${json.errors.length > 1 ? json.errors.length + ' errors' : 'an error'}.\n`,
         ),
-        padding: [(json.warnings?.length ? 0 : 1), 2, 0, 4],
+        padding: [json.warnings?.length ? 0 : 1, 2, 0, 4],
       });
       ui.div({
         text: (json.errors as BuildError[])
-          .map(err => err.moduleName
-            ? `${chalk.greenBright.bold(err.moduleName)}\n${err.message}`
-            : (err.message ?? err)
+          .map((err) =>
+            err.moduleName ? `${chalk.greenBright.bold(err.moduleName)}\n${err.message}` : err.message ?? err,
           )
           .join('\n\n'),
         padding: [0, 2, 1, 4],
@@ -275,12 +273,12 @@ export namespace Consoleize {
   /**
    * generateReport
    *
-   * @param {StatsJsonAsset[]} assets
-   * @param {string} dir
-   * @param {Performance} performance
    * @private
+   * @param assets {StatsJsonAsset[]}
+   * @param dir {string}
+   * @param performance {Performance}
    */
-  function generateReport (assets: StatsJsonAsset[], dir: string, performance: Performance): void {
+  function generateReport(assets: StatsJsonAsset[], dir: string, performance: Performance): void {
     assets.forEach((asset: StatsJsonAsset) => {
       const assetSize = formatSize(asset.size);
       const gzipSize = dir ? getGzippedSize(asset.name, dir) : assetSize;
@@ -289,21 +287,23 @@ export namespace Consoleize {
 
       ui.div(
         {
-          text: (asset.size >= performance.maxEntrypointSize)
-            ? chalk.yellow(assetSizeFixed + ' ' + assetSize.unit)
-            : `${assetSizeFixed} ${chalk.gray(assetSize.unit)}`,
+          text:
+            asset.size >= performance.maxEntrypointSize
+              ? chalk.yellow(assetSizeFixed + ' ' + assetSize.unit)
+              : `${assetSizeFixed} ${chalk.gray(assetSize.unit)}`,
           width: columnInfo.head[0].width,
           padding: columnInfo.body[0].padding,
           align: 'right',
         },
-        (dir && {
-          text: (gzipSize.size >= performance.maxEntrypointSize)
-            ? chalk.yellow(gzipSizeFixed + ' ' + gzipSize.unit)
-            : `${gzipSizeFixed} ${chalk.gray(gzipSize.unit)}`,
+        dir && {
+          text:
+            gzipSize.size >= performance.maxEntrypointSize
+              ? chalk.yellow(gzipSizeFixed + ' ' + gzipSize.unit)
+              : `${gzipSizeFixed} ${chalk.gray(gzipSize.unit)}`,
           width: columnInfo.head[1].width,
           padding: columnInfo.body[1].padding,
           align: 'right',
-        }),
+        },
         {
           text: chalk[extTypeColor[asset.type] ?? 'gray'](asset.name),
           width: columnInfo.head[2].width,
@@ -320,11 +320,11 @@ export namespace Consoleize {
   /**
    * formatSize
    *
-   * @param {number} assetSize
-   * @returns {FormatSize}
    * @private
+   * @param assetSize {number}
+   * @returns {FormatSize}
    */
-  function formatSize (assetSize: number): FormatSize {
+  function formatSize(assetSize: number): FormatSize {
     let size: number, unit: string;
     if (assetSize > 1000000) {
       size = assetSize / 1000000; //1048576;
@@ -342,12 +342,12 @@ export namespace Consoleize {
   /**
    * getGzippedSize
    *
-   * @param {string} assetName
-   * @param {string} dir
-   * @returns {FormatSize}
    * @private
+   * @param assetName {string}
+   * @param dir {string}
+   * @returns {FormatSize}
    */
-  function getGzippedSize (assetName: string, dir: string): FormatSize {
+  function getGzippedSize(assetName: string, dir: string): FormatSize {
     const filepath = path.resolve(path.join(dir, assetName));
     try {
       const buffer = fs.readFileSync(filepath);
