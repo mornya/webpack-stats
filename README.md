@@ -5,7 +5,7 @@
 ![downloads](https://img.shields.io/npm/dw/webpack-stats)
 ![license](https://img.shields.io/npm/l/webpack-stats)
 
-Copyright 2022. mornya. All rights reserved.
+Copyright 2023. mornya. All rights reserved.
 
 > This project has been created by [Vessel CLI](https://www.npmjs.com/package/@mornya/vessel).
   For a simple and quick reference about it, click [here](https://mornya.github.io/documents/guide/vessel.md).
@@ -29,7 +29,7 @@ $ yarn add webpack-stats
 import { Consoleize } from 'webpack-stats';
 import webpack from 'webpack';
 
-...
+/* ... */
 
 const isWebpackDevServerRun = false;
 const webpackConfig = { ... };
@@ -76,14 +76,14 @@ Generates a message from stats file
 - `dir`: the webpack build output directory name from project root (empty string does not display GZipped-size)
 - `webpackConfigPerformance`: the webpack configuration of `performance` section object.
 ```typescript
-Consoleize.from (statsFile: string, dir: string, webpackConfigPerformance: WebpackConfigPerformance);
+function from(statsFile: string, dir: string, webpackConfigPerformance: WebpackConfigPerformance) {}
 ```
 
 #### `Consoleize.generate`
 Generates a message from stats object
 - `statsJson`: result stats value of called by toJson() method
 ```typescript
-Consoleize.generate (statsJson: webpack.Stats.ToJsonOutput, dir: string, webpackConfigPerformance: WebpackConfigPerformance);
+function generate(statsJson: webpack.Stats.ToJsonOutput, dir: string, webpackConfigPerformance: WebpackConfigPerformance) {}
 ```
 
 ## Change Log
